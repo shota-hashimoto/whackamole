@@ -3,9 +3,9 @@
     <h1 class="logo">Whack-a-mole!</h1>
     <button class="start-game">Start Game</button>
     <div class="counters-container">
-      <Counter></Counter>
-      <Counter></Counter>
-      <Counter></Counter>
+      <Counter label="Score:" v-bind:value="score"></Counter>
+      <Counter label="HighScore:" v-bind:value="highScore"></Counter>
+      <Counter label="Timer" v-bind:value="timer"></Counter>
     </div>
     <Moles></Moles>
   </div>
@@ -20,6 +20,13 @@ export default {
   components: {
     Counter,
     Moles
+  },
+  data: function() {
+    return {
+      score: 0,
+      highScore: 0,
+      timer: 20
+    };
   }
 };
 </script>
