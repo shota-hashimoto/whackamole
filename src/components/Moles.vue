@@ -1,9 +1,6 @@
 <template>
-  <div class="moles-container gameActive">
-    <Mole></Mole>
-    <Mole></Mole>
-    <Mole></Mole>
-    <Mole></Mole>
+  <div v-bind:class="classNames">
+    <Mole v-for="(moleState,index) in moleData" v-bind:key="index" v-bind:active="moleState"></Mole>
   </div>
 </template>
 
@@ -14,6 +11,15 @@ export default {
   name: "Moles",
   components: {
     Mole
+  },
+  props: ["moleData", "gameActive"],
+  computed: {
+    classNames: function() {
+      return {
+        "moles-container": true,
+        "game-active": this.gameActive
+      };
+    }
   }
 };
 </script>
