@@ -1,14 +1,13 @@
 <template>
   <div class="counter">
-    <h2>{{ label }}</h2>
-    <h1>{{ value }}</h1>
+    <h2>String</h2>
+    <h1>0</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Counter",
-  props: ["value", "label"]
+  name: "Counter"
 };
 </script>
 
@@ -23,4 +22,3 @@ export default {
   margin: 0;
 }
 </style>
-

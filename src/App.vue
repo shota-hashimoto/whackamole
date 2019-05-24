@@ -1,101 +1,48 @@
 <template>
   <div class="whackamole">
     <h1 class="logo">Whack-a-mole!</h1>
-    <button class="start-game" v-on:click="startGame">Start Game</button>
+    <button class="start-game">Start Game</button>
     <div class="counters-container">
-      <Counter label="Score:" v-bind:value="score"/>
-      <Counter label="High Score:" v-bind:value="highScore"/>
-      <Counter label="Timer" v-bind:value="timer"/>
+      <Counter></Counter>
+      <Counter></Counter>
+      <Counter></Counter>
     </div>
-    <Moles v-bind:moleData="moles" v-bind:gameActive="gameActive" v-on:whack="handleMoleWhack"></Moles>
+    <div class="moles-container gameActive">
+      <div class="mole-container inactive">
+        <div class="mole-image-container">
+          <img class="mole" src="./assets/mole.png" alt="mole">
+        </div>
+        <img class="dirt" src="./assets/dirt.svg" alt="mole dirt">
+      </div>
+      <div class="mole-container inactive">
+        <div class="mole-image-container">
+          <img class="mole" src="./assets/mole.png" alt="mole">
+        </div>
+        <img class="dirt" src="./assets/dirt.svg" alt="mole dirt">
+      </div>
+      <div class="mole-container inactive">
+        <div class="mole-image-container">
+          <img class="mole" src="./assets/mole.png" alt="mole">
+        </div>
+        <img class="dirt" src="./assets/dirt.svg" alt="mole dirt">
+      </div>
+      <div class="mole-container inactive">
+        <div class="mole-image-container">
+          <img class="mole" src="./assets/mole.png" alt="mole">
+        </div>
+        <img class="dirt" src="./assets/dirt.svg" alt="mole dirt">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import Counter from "./components/Counter";
-import Moles from "./components/Moles";
 
 export default {
   name: "App",
-  data: function() {
-    return {
-      score: 0,
-      highScore: 0,
-      timer: 20,
-      moles: [false, false, false, false],
-      gameActive: false
-    };
-  },
   components: {
-    Counter,
-    Moles
-  },
-  methods: {
-    resetState: function() {
-      this.score = 0;
-      this.timer = 20;
-      this.moles = [false, false, false, false];
-    },
-    startGame: function() {
-      if (this.gameActive === true) {
-        return;
-      }
-      this.resetState();
-      this.gameActive = true;
-      this.startTimer();
-      this.startMoles();
-    },
-    endGame: function() {
-      this.gameActive = false;
-      this.stopTimer();
-      this.stopMoles();
-      this.updateHighScore();
-    },
-    updateHighScore() {
-      this.highScore = Math.max(this.highScore, this.score);
-    },
-    startTimer: function() {
-      this.timerId = setInterval(() => {
-        this.decrementTime();
-      }, 1000);
-    },
-    decrementTime: function() {
-      this.timer--;
-      if (this.timer === 0) {
-        this.endGame();
-      }
-    },
-    stopTimer: function() {
-      clearInterval(this.timerId);
-    },
-    startMoles: function() {
-      this.moleInterval = setInterval(this.activateRandomMole.bind(this), 500);
-    },
-    stopMoles: function() {
-      clearInterval(this.moleInterval);
-    },
-    activateRandomMole: function() {
-      const randomMoleIndex = Math.floor(Math.random() * this.moles.length);
-      if (!this.moles[randomMoleIndex]) {
-        this.activateMole(randomMoleIndex);
-      }
-    },
-    toggleMole: function(moleId, shouldShow) {
-      const moles = this.moles.slice();
-      moles[moleId] = shouldShow;
-      this.moles = moles;
-    },
-    activateMole: function(moleId) {
-      this.toggleMole(moleId, true);
-      setTimeout(() => this.deactivateMole(moleId), 1500);
-    },
-    deactivateMole: function(moleId) {
-      this.toggleMole(moleId, false);
-    },
-    handleMoleWhack: function(moleId) {
-      this.score = this.score + 1;
-      this.deactivateMole(moleId);
-    }
+    Counter
   }
 };
 </script>
@@ -120,5 +67,52 @@ export default {
 .counters-container {
   display: flex;
   justify-content: space-evenly;
+}
+
+.moles-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.moles-container.game-active {
+  opacity: 1;
+}
+.mole-container {
+  width: 160px;
+  height: 160px;
+  display: inline-block;
+  margin: 10px;
+  position: relative;
+}
+.mole-image-container {
+  overflow: hidden;
+  width: 160px;
+  height: 140px;
+}
+.mole-container img {
+  display: block;
+  transition: all 0.3s ease;
+}
+.mole {
+  position: relative;
+  width: 60%;
+  margin: auto;
+  cursor: pointer;
+}
+.mole-container.active .mole {
+  /* display: block; */
+  top: 0px;
+}
+.mole-container.inactive .mole {
+  top: 200px;
+}
+.dirt {
+  width: 100%;
+  margin: auto;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
 }
 </style>
