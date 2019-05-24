@@ -37,6 +37,9 @@ export default {
       this.moles = [false, false, false, false];
     },
     startGame: function() {
+      if (this.gameActive === true) {
+        return;
+      }
       this.resetState();
       this.gameActive = true;
       this.startTimer();
@@ -46,6 +49,10 @@ export default {
       this.gameActive = false;
       this.stopTimer();
       this.stopMoles();
+      this.updateHighScore();
+    },
+    updateHighScore() {
+      this.highScore = Math.max(this.highScore, this.score);
     },
     startTimer: function() {
       this.timerId = setInterval(() => {
