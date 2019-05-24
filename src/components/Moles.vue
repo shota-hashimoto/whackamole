@@ -1,40 +1,24 @@
 <template>
-  <div v-bind:class="classNames">
-    <Mole
-      v-for="(moleState, index) in moleData"
-      v-bind:key="index"
-      v-bind:active="moleState"
-      v-bind:moleId="index"
-      v-on:whack="handleWhack"
-    />
+  <div class="moles-container gameActive">
+    <Mole></Mole>
+    <Mole></Mole>
+    <Mole></Mole>
+    <Mole></Mole>
   </div>
 </template>
 
- <script>
+<script>
 import Mole from "./Mole";
+
 export default {
   name: "Moles",
-  props: ["moleData", "gameActive"],
-  methods: {
-    handleWhack: function(moleId) {
-      this.$emit("whack", moleId);
-    }
-  },
-  computed: {
-    classNames: function() {
-      return {
-        "moles-container": true, // 必ず表示する
-        "game-active": this.gameActive // ゲームが遊ばれている時だけ
-      };
-    }
-  },
   components: {
     Mole
   }
 };
 </script>
 
- <style>
+<style>
 .moles-container {
   margin-top: 20px;
   display: flex;
@@ -46,3 +30,4 @@ export default {
   opacity: 1;
 }
 </style>
+

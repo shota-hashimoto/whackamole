@@ -1,34 +1,20 @@
+
 <template>
-  <div v-bind:class="classNames">
+  <div class="mole-container inactive">
     <div class="mole-image-container">
-      <img class="mole" src="../assets/mole.png" alt="mole" v-on:click="handleClick">
+      <img class="mole" src="../assets/mole.png" alt="mole">
     </div>
     <img class="dirt" src="../assets/dirt.svg" alt="mole dirt">
   </div>
 </template>
 
- <script>
+<script>
 export default {
-  name: "Mole",
-  props: ["active", "moleId"],
-  methods: {
-    handleClick: function() {
-      this.$emit("whack", this.moleId);
-    }
-  },
-  computed: {
-    classNames: function() {
-      return {
-        "mole-container": true, // 必ず表示する
-        active: this.active, // モグラが出てる場合
-        inactive: !this.active // モグラが出てない場合
-      };
-    }
-  }
+  name: "Mole"
 };
 </script>
 
- <style>
+<style>
 .mole-container {
   width: 160px;
   height: 160px;
@@ -52,6 +38,7 @@ export default {
   cursor: pointer;
 }
 .mole-container.active .mole {
+  /* display: block; */
   top: 0px;
 }
 .mole-container.inactive .mole {
