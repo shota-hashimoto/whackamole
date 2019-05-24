@@ -1,6 +1,12 @@
 <template>
   <div v-bind:class="classNames">
-    <Mole v-for="(moleState,index) in moleData" v-bind:key="index" v-bind:active="moleState"></Mole>
+    <Mole
+      v-for="(moleState,index) in moleData"
+      v-bind:key="index"
+      v-bind:active="moleState"
+      v-bind:moleId="index"
+      @whack="handleClick"
+    />
   </div>
 </template>
 
@@ -19,6 +25,11 @@ export default {
         "moles-container": true,
         "game-active": this.gameActive
       };
+    }
+  },
+  methods: {
+    handleClick: function(moleId) {
+      this.$emit("whack", moleId);
     }
   }
 };

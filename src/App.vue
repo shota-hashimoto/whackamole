@@ -7,7 +7,7 @@
       <Counter label="HighScore:" v-bind:value="highScore"></Counter>
       <Counter label="Timer" v-bind:value="timer"></Counter>
     </div>
-    <Moles v-bind:moleData="moles" v-bind:gameActive="gameActive"></Moles>
+    <Moles v-bind:moleData="moles" v-bind:gameActive="gameActive" @whack="handleMoleWhack"></Moles>
   </div>
 </template>
 
@@ -58,6 +58,9 @@ export default {
     },
     stopTimer: function() {
       clearInterval(this.timerId);
+    },
+    handleMoleWhack: function(moleId) {
+      console.log("moleId = ", moleId);
     }
   }
 };

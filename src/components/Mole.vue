@@ -2,7 +2,7 @@
 <template>
   <div v-bind:class="classNames">
     <div class="mole-image-container">
-      <img class="mole" src="../assets/mole.png" alt="mole">
+      <img class="mole" src="../assets/mole.png" alt="mole" @click="handleClick">
     </div>
     <img class="dirt" src="../assets/dirt.svg" alt="mole dirt">
   </div>
@@ -11,7 +11,7 @@
 <script>
 export default {
   name: "Mole",
-  props: ["active"],
+  props: ["active", "moleId"],
   computed: {
     classNames: function() {
       return {
@@ -19,6 +19,11 @@ export default {
         active: this.active,
         inactive: !this.active
       };
+    }
+  },
+  methods: {
+    handleClick: function() {
+      this.$emit("whack", this.moleId);
     }
   }
 };
